@@ -1,7 +1,5 @@
 import throttle from 'lodash.throttle'; 
 const form = document.querySelector(".login-form");
-form.addEventListener('input', throttle(onFormInput, 500));
-form.addEventListener('submit', onFormSubmit);
 
 function onFormInput(event) {
     const formElements = event.currentTarget.elements;
@@ -29,3 +27,6 @@ function onFormSubmit(event) {
     console.log(formData);
     event.currentTarget.reset();
 }
+
+form.addEventListener('input', throttle(onFormInput, 500));
+form.addEventListener('submit', onFormSubmit);
