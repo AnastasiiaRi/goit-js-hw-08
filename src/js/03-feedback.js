@@ -1,13 +1,13 @@
 import throttle from 'lodash.throttle'; 
 const form = document.querySelector(".login-form");
-form.addEventListener('input', throttle(onFormInput, 500));
+form.addEventListener('input', throttle(onInputData, 500));
 form.addEventListener('submit', onFormSubmit);
 
 let dataForm = JSON.parse(localStorage.getItem('feedback-form-state')) || {};
 const { email, message } = form.elements;
 reloadPage();
 
-function onFormInput(e) {
+function onInputData(e) {
   dataForm = { email: email.value, message: message.value };
   localStorage.setItem('feedback-form-state', JSON.stringify(dataForm));
 }
