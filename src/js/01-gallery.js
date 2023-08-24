@@ -1,16 +1,14 @@
 import { galleryItems } from './gallery-items.js';
-// Change code below this line
-
-console.log(galleryItems);
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 const gallery = document.querySelector(".gallery");
 const image = galleryItems
 .map(({ preview, original, description }) => {
-  return `<li class="gallery__item">
-  <a class="gallery__link" href="${original.value}">
+  return `<li class="gallery__item" style="list-style: none";>
+  <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
       src="${preview}"
-      data-source="${original}"
       alt="${description}"
     />
   </a>
@@ -20,24 +18,14 @@ const image = galleryItems
 gallery.insertAdjacentHTML("afterbegin", image);
 
 gallery.addEventListener("click", e => {
-  e.preventDefault();
-  if (e.target.nodeName !== "IMG") {
-    return;
-  }
-  const instance = basicLightbox.create(`<img src="${e.target.dataset.source}">`,
-    {
-      onShow: () => {
-        window.addEventListener('keydown', onKeydownEsc);
-      },
-      onClose: () => {
-        window.removeEventListener('keydown', onKeydownEsc);
-      },
-    },
-  );
-  const onKeydownEsc = e => {
-    if (e.key === 'Escape') {
-      instance.close();
-    }
-  };
-  instance.show();
+    e.preventDefault();
+    if (e.target.nodeName !== "IMG") {
+          return;
+      } 
+  });
+
+new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
 });
+  console.log(galleryItems);
