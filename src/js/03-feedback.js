@@ -1,32 +1,31 @@
 import throttle from 'lodash.throttle'; 
 const form = document.querySelector(".login-form");
-
-function onFormInput(event) {
-    const formElements = event.currentTarget.elements;
-    const email = formElements.email.value;
-    const message = formElements.message.value;
-    const formData = {
-        email,
-        message,
-    };
-    localStorage.setItem('feedback-form-state', formData);
-}
-
-function onFormSubmit(event) {
-    event.preventDefault();
-    const formElements = event.currentTarget.elements;
-    const email = formElements.email.value;
-    const message = formElements.message.value;
-    if (email === '' || message === '') {
-        return alert('Все поля должны быть заполнены');
-    }
-    const formData = {
-        email,
-        message,
-    };
-    console.log(formData);
-    event.currentTarget.reset();
-}
-
 form.addEventListener('input', throttle(onFormInput, 500));
 form.addEventListener('submit', onFormSubmit);
+
+let dataForm = JSON.parse(localStorage.getItem('feedback-form-state')) || {};
+const { email, message } = form.elements;
+reloadPage();
+
+function onFormInput(e) {
+  dataForm = { email: email.value, message: message.value };
+  localStorage.setItem('feedback-form-state', JSON.stringify(dataForm));
+}
+
+function reloadPage() {
+    if (dataform)  {
+    email.value = dataForm.email || '';
+    message.value = dataForm.message || '';
+  }
+}
+
+function onFormSubmit(e) {
+    e.preventDefault();
+    console.log({ email: email.value, message: message.value });
+    if (email.value === '' || message.value === '') {
+        return alert('Все поля должны быть заполнены');
+    }
+    localStorage.removeItem('feedback-form-state');
+    e.currentTarget.reset();
+    dataForm = {};
+}
