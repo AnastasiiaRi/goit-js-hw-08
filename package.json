@@ -4,7 +4,8 @@
   "description": "Этот проект был создан при помощи Parcel. Для знакомства и настройки дополнительных возможностей [обратись к документации](https://parceljs.org/).",
   "homepage": "https://anastasiiari.github.io/goit-js-hw-08/",
   "scripts": {
-
+    "start": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /goit-js-hw-08/"
   },
   "repository": {
     "type": "git",
